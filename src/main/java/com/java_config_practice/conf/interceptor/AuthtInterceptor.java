@@ -23,7 +23,7 @@ public class AuthtInterceptor extends HandlerInterceptorAdapter {
            	response.sendRedirect("/main");        
         	return false;        	
         }
-        return true;
+        return true;//
     }
 
     @Override

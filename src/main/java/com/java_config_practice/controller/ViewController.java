@@ -3,6 +3,7 @@ package com.java_config_practice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -133,6 +134,8 @@ public class ViewController {
        return "fileUploadForm";
     }
 
+    
+    
     @RequestMapping(value="autoComplete", method = RequestMethod.POST)
     @ResponseBody
     public String autoComplete(Model model, @RequestParam Map<String, Object> param)
@@ -141,6 +144,12 @@ public class ViewController {
        return memberService.search((String)param.get("name"));
     }
 
+    @RequestMapping(value="react/{menu}", method = RequestMethod.GET)
+    public String react(@PathVariable String menu, Model model, @RequestParam Map<String, Object> param) throws Exception {    	
+ 
+        return "reactView/"+menu;
+    }
+    
     @RequestMapping(value="boardAdd", method = RequestMethod.POST)
     @ResponseBody
     public void boardAdd(Model model, @RequestParam Map<String, Object> param) throws Exception {    	

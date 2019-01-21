@@ -18,9 +18,9 @@
     <div class="id-input">
     <input id="id-input"/>
     </div>
-    <div class="pw-input">
+   <!--  <div class="pw-input">
     <input id="pw-input"/>
-    </div>
+    </div> -->
    </div>
    <div class="login-bottom">
      SUBMIT
@@ -31,7 +31,7 @@
 </body>
 <script>
 $('.login-bottom').bind('click', function(){	
-	commonAjax({url:'/loginProcess', type: 'POST'}, function(){ window.location.href = '/main';})
+	commonAjax({url:'/loginProcess', type: 'POST', param:{"id":$("#id-input").val()}}, function(){ window.location.href = '/main';})
 });
 
 </script>

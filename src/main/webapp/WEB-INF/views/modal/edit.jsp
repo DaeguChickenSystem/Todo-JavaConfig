@@ -13,30 +13,17 @@
 	</div>
 	<div class="modal-contents">
 		<div class="modal-contents-text" id="content">◎ CONTENTS </div>
-		<textarea class="modal-contents-input" >  </textarea>
+		<div class="modal-contents-input" id="editor">  </div>
 
 		<div class="modal-contents-calender">
 			<div class="modal-title-text">◎ CALENDAR</div>
 			<div class="modal-calendar-div">
-			<div class="startDt date-div">Start Date</div> <input type="text" id="startDt" style="
-
-    float: left;
-    width: 45%;
-    height:;
-    background: #ffffff00;
-    border: 0px;
-
-">
+			<div class="startDt date-div">Start Date</div> 
+			<input type="text" id="startDt" class="cal-div">
 			</div>
 			<div class="modal-calendar-div">
 			<div class="startDt date-div" >End Date</div>
-			<input type="text" id="endDt" style="
-     float: left;
-    width: 45%;
-    height:;
-    background: #ffffff00;
-    border: 0px;
-">
+			<input type="text" id="endDt" class="cal-div">
 			
 			</div>
 		</div>
@@ -90,4 +77,14 @@
 <script>
 $( "#startDt" ).datepicker();
 $( "#endDt" ).datepicker();
+
+InlineEditor
+.create( document.querySelector( '#editor' ) )
+.then( editor => {
+	console.log(editor);
+   ekEditor = editor;
+} )
+.catch( error => {
+    console.error( error );
+} );
 </script>

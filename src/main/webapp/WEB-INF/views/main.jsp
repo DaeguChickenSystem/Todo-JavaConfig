@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/inline/ckeditor.js"></script>
 <script src="/resources/js/unitTest.js"></script>
 </head>
 <body>
@@ -60,8 +60,9 @@
  </div>
  
   <jsp:include page="./common/right.jsp"/>
- 
+
 </div>
+ 
 </body>
 <script src="/resources/js/common.js"></script>
 <script>

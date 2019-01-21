@@ -49,42 +49,46 @@ function modalCommon(){
 	
 	$this = this;
 	
-    $('.task-button').bind('click', function(event){ 
-    	 $('.modal').css('display', 'block'); 
-    	 $('.dim-mask').css('display', 'block');
-    	 var param = {index: parseInt(event.currentTarget.getAttribute("boardid"))};
-    	 if(event.currentTarget.id){
-    		 param['task_id'] = parseInt(event.currentTarget.id);
-
-        	 commonAjax({url: $this.url, type:'POST', param: param}, 
-        	    	 function(data){     
-        	    		 console.log(data);
-        	    		        	 $('.main-container').append(that.div);	
-        	                        /* $('.modal').html(data);           */            
-        	    		        	 $('#title').val(JSON.parse(data).title);
-        	    		        	 $('.modal-contents-input').val(JSON.parse(data).contents);
-        	    		        	 $('#boardIdx').val(event.currentTarget.getAttribute("boardid"));
-        	    		        	 $('#taskId').val(JSON.parse(data).task_id); 		        	 
-        	    		        	 
-        	    		        	 
-        	         }  
-        	    	)  
-    		 
-    	 }else{
-    		 param['task_id'] = '';
-        	 $('#title').val('');
-        	 $('.modal-contents-input').val('');
-        	 $('#boardIdx').val(event.currentTarget.getAttribute("boardid"));
-        	 $('#taskId').val(''); 	    		 
-    	 }
-  	 
-     });	
+    $('.task-button').bind('click', taskAdd);	
     
     $('.board-add-button').bind('click', function(event){
    	 $('.modal-board').css('display', 'block'); 
 	 $('.dim-mask').css('display', 'block');
     });
     
+}
+
+function taskAdd(event){ 
+	 $('.modal').css('display', 'block'); 
+	 $('.dim-mask').css('display', 'block');
+	 var param = {index: parseInt(event.currentTarget.getAttribute("boardid"))};
+	 if(event.currentTarget.id){
+		 param['task_id'] = parseInt(event.currentTarget.id);
+
+   	 commonAjax({url: $this.url, type:'POST', param: param}, 
+   	    	 function(data){     
+   	    		 console.log(data);
+   	    		        	 $('.main-container').append(that.div);	
+   	                        /* $('.modal').html(data);           */            
+   	    		        	 $('#title').val(JSON.parse(data).title);
+   	    		        	 $('.modal-contents-input').val(JSON.parse(data).contents);
+   	    		           	 $('#startDt').val(JSON.parse(data).start_dt);
+   	    		             $('#endDt').val(JSON.parse(data).end_dt);
+   	    		        	 $('#boardIdx').val(event.currentTarget.getAttribute("boardid"));
+   	    		        	 $('#taskId').val(JSON.parse(data).task_id); 		     
+   	         }  
+   	    	)  
+		 
+	 }else{
+		 param['task_id'] = '';
+   	 $('#title').val('');
+   	 $('.modal-contents-input').val('');
+      	 $('#startDt').val('');
+        $('#endDt').val('');
+   	 $('#boardIdx').val(event.currentTarget.getAttribute("boardid"));
+   	 $('#taskId').val(''); 	    		 
+	 }
+	 
 }
 
 
@@ -234,7 +238,9 @@ $('.task-submit').bind('click', function(event){
 			      board_id: $('#boardIdx').val(),
 			      task_id: $('#taskId').val(), 
 			      title: $($('.modal-title-input')[0]).val(), 
-			      content: $($('.modal-contents-input')[0]).val() 
+			      content: ekEditor.getData() ,
+			      start_dt: $("#startDt").val(),
+			      end_dt: $("#endDt").val()
 			      }
 	 
 	  commonAjax({url: '/taskUpdate', type: 'POST',
@@ -265,9 +271,34 @@ $('.task-submit').bind('click', function(event){
 });
 
 
+
+/*$('.board-submit').bind('click', function(){
+	
+	 commonAjax({url: "/addBoard" , type:'POST', param: {'title': $("#board-title-input").val(), 'people': []}}); 
+	
+});
+*/
 $('.board-submit').bind('click', function(){
 	
-	 commonAjax({url:"/boardAdd", type:'POST', param: {}}, function(e){ alert("썽공");});
+	 commonAjax({url:"/boardAdd", type:'POST', param: {}}, 
+			 function(e){
+		 		$(".modal-close-button").trigger("click");
+		 		$("#board-title-input").val("")
+		 		var board = document.createElement("div");
+		 		board.setAttribute("class", "task-depth-0");
+		 		document.ondrop = drop;
+		 		document.ondragover = allowDrop;
+
+		 		var boardAdd = document.createElement("div");
+		 		boardAdd.setAttribute("class", "add-task task-button");
+		 		boardAdd.setAttribute("boardid", $(".add-task").length);
+		 		boardAdd.innerText ="+";
+		 		boardAdd.onclick=taskAdd;
+		 		board.append(boardAdd);
+		 			
+		 		$(".board-add-button").before(board);	 		
+	 
+	 });
 	
 	
 });

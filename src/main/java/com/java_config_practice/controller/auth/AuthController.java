@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java_config_practice.service.AuthService;
@@ -27,9 +28,9 @@ public class AuthController {
 
   @RequestMapping(value="/loginProcess", method = RequestMethod.POST)
   @ResponseBody
-  public Map login(Model model, HttpServletRequest request) {   	  	
+  public Map login(Model model, HttpServletRequest request, @RequestParam Map<String, Object> param) {   	  	
   	Map result = new HashMap();
-  	result.put("result", authService.login(request));
+  	result.put("result", authService.login(request, (HashMap) param));
 
 
     return result;
